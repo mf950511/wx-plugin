@@ -1,0 +1,8 @@
+<view class="upload-wrapper">
+  <view class="upload-end" wx:for="{{ uploadSuccessList }}" wx:key="index">
+    <image class="upload-file" src="{{item}}" bindtap="previewImage({{item}})" mode="aspectFill"></image>
+    <icon type="clear" size="{{18}}" color="#E02020" class="upload-delete" bindtap="deleteImage({{index}})"/>
+  </view>
+  <view class="upload" bindtap="uploadFile"><image class="fill" src="{{uploadImgUrl}}" alt="上传" title="上传"></image></view>
+</view>
+<button class="confirmBtn" bindtap="confirm">点击确认</button>

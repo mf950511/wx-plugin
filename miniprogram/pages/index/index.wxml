@@ -1,0 +1,12 @@
+
+<view class="test">
+  <view class="wrapper">
+    <navigator url="plugin://myPlugin/fill-info">
+      我是路由跳转插件
+    </navigator>
+  </view>
+  
+  <button bindtap="liveness" class="red">我是事件跳转插件</button>
+  <button bindtap="testPlugin" class="blue">跳转引用输入插件页面</button>
+  <button bindtap="testImage" class="blue">跳转引用上传插件页面</button>
+</view>

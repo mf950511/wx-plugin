@@ -1,0 +1,17 @@
+.wrapper {
+  padding: 30rpx 0 0 35rpx;
+}
+button {
+  line-height: 90rpx;
+  height: 90rpx;
+  color: #fff;
+  margin-top: 60rpx;
+  width: 680rpx;
+  margin-left: 35rpx;
+}
+button.red {
+  background: red;
+}
+button.blue {
+  background: blue;
+}

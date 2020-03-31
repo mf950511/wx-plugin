@@ -1,0 +1,26 @@
+.input-item {
+  display: flex;
+  padding: 29rpx 32rpx 23rpx;
+  align-items: center;
+  font-size: 30rpx;
+  background: #fff;
+  border-bottom: 2rpx solid #F3F3F3;
+}
+.input-item.no-border {
+  border-bottom: 0;
+}
+.input-item .input-title {
+  color: #4a4a4a;
+  line-height: 42rpx;
+}
+.input-item .input-content {
+  flex: 1;
+  padding: 0 24rpx;
+  display: flex;
+  color: rgba(0, 0, 0, 0.85);
+  line-height: 40rpx;
+  font-size: 28rpx;
+}
+.input-item .input-content input {
+  flex: 1;
+}

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "填充信息",
+  "usingComponents": {
+    "input-item": "plugin://myPlugin/input-item"
+  }
+}

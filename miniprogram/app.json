@@ -1,0 +1,14 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/test-plugin/test-plugin",
+    "pages/test-image/test-image"
+  ],
+  "plugins": {
+    "myPlugin": {
+      "version": "dev",
+      "provider": "wx29eaa708fc6bf3a4"
+    }
+  },
+  "sitemapLocation": "sitemap.json"
+}

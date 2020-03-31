@@ -1,0 +1,29 @@
+page {
+  background: #f8f8f8;
+}
+.fill-info .fill-info-title {
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #171717;
+  padding: 21rpx 32rpx 17rpx 58rpx;
+  position: relative;
+}
+.fill-info .fill-info-title:after {
+  position: absolute;
+  content: '';
+  top: 29rpx;
+  height: 26rpx;
+  width: 4rpx;
+  background: #488BFE;
+  left: 32rpx;
+}
+.fill-info .primary {
+  background: #488BFE;
+  margin-top: 120rpx;
+  color: #fff;
+  width: 680rpx;
+  height: 90rpx;
+  margin-left: 35rpx;
+  font-size: 34rpx;
+  line-height: 90rpx;
+}

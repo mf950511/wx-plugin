@@ -1,0 +1,11 @@
+<view class="fill-info">
+  <view class="fill-info-title">请填写个人信息</view>
+  <block wx:for="{{userInfo}}">
+    <input-item noBorder="{{ index === userInfo.length }}" placeholder="{{item.placeholder}}" title="{{item.title}}" bind:inputuser="onMyEvent"></input-item>
+  </block>
+  <view class="fill-info-title">请填写配偶信息</view>
+  <block wx:for="{{marriedArray}}">
+    <input-item noBorder="{{ index === marriedArray.length }}" placeholder="{{item.placeholder}}" title="{{item.title}}"></input-item>
+  </block>
+  <button class="primary" bindtap="back">提交信息</button>
+</view>

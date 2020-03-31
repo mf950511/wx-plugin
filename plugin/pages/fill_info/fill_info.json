@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "填充信息",
+  "usingComponents": {
+    "input-item": "../../components/input-item/input-item"
+  }
+}

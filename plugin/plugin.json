@@ -1,0 +1,10 @@
+{
+  "publicComponents": {
+    "input-item": "components/input-item/input-item",
+    "upload-image": "components/upload-image/upload-image"
+  },
+  "pages": {
+    "fill-info": "pages/fill_info/fill_info"
+  },
+  "main": "index.js"
+}

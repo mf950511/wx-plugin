@@ -1,0 +1,3 @@
+<view class="test-upload-image">
+  <upload-image bind:upload-image="uploadImage"></upload-image>
+</view>

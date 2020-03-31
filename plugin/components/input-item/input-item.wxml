@@ -1,0 +1,6 @@
+<view class="input-item {{ noBorder ? 'no-border' : ''}}">
+  <view class="input-title" space="emsp">{{ title }}</view>
+  <view class="input-content">
+    <input placeholder="{{ placeholder }}" bindinput="inputValue"/>
+  </view>
+</view>
