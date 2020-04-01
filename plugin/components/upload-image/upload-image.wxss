@@ -42,3 +42,52 @@
   margin-left: 35rpx;
   background: orangered;
 }
+.upload-purpose .line-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 28rpx;
+  line-height: 28rpx;
+  color: #9B9B9B;
+  padding: 18rpx 0;
+  margin-right: -20rpx;
+}
+.upload-purpose .line-list .line-content {
+  color: #4A4A4A;
+  flex: 1;
+  text-align: right;
+  margin-right: 30rpx;
+}
+.upload-purpose .line-list .arrow:after {
+  height: 14rpx;
+  width: 14rpx;
+}
+.upload-purpose .line-list.open .arrow:after {
+  transform: matrix(0.71, -0.71, 0.71, 0.71, 0, 0);
+  margin-top: -2rpx;
+  top: 0;
+}
+.upload-purpose .upload-view {
+  margin-right: -20rpx;
+  padding: 0 0 20rpx 0;
+  display: none;
+}
+.upload-purpose .upload-view.open {
+  display: flex;
+  flex-wrap: wrap;
+}
+.upload-purpose .upload-view .upload-image {
+  width: 120rpx;
+  height: 120rpx;
+  margin: 20rpx 20rpx 0 0;
+}
+.upload-purpose .upload-view .add-image-view {
+  width: 120rpx;
+  height: 120rpx;
+  text-align: center;
+  margin: 20rpx 20rpx 0 0;
+}
+.upload-purpose .upload-view .add-image-view .add-image {
+  width: 56rpx;
+  height: 56rpx;
+}

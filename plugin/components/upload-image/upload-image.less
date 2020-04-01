@@ -44,3 +44,61 @@
   margin-left: 35rpx;
   background: orangered;
 }
+.upload-purpose{
+  .line-list{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 28rpx;
+    line-height: 28rpx;
+    color: #9B9B9B;
+    padding: 18rpx 0;
+    margin-right: -20rpx;
+    .line-content{
+      color: #4A4A4A;
+      flex: 1;
+      text-align: right;
+      margin-right: 30rpx;
+    }
+    .navigator-arrow{
+    }
+    .arrow:after {
+      height: 14rpx;
+      width: 14rpx;
+    }
+    
+    &.open{
+      .arrow:after {
+        transform: matrix(0.71, -0.71, 0.71, 0.71, 0, 0);
+        margin-top: -2rpx;
+        top: 0;
+      }
+    }
+  }
+  .upload-view {
+    @contentHeight: 120rpx;
+    // padding: 40rpx 0;
+    margin-right: -20rpx;
+    padding: 0 0 20rpx 0;
+    display: none;
+    &.open{
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .upload-image {
+      width: @contentHeight;
+      height: @contentHeight;
+      margin: 20rpx 20rpx 0 0;
+    }
+    .add-image-view {
+      width: @contentHeight;
+      height: @contentHeight;
+      text-align: center;
+      margin: 20rpx 20rpx 0 0;
+      .add-image {
+        width: 56rpx;
+        height: 56rpx;
+      }
+    }
+  }
+}

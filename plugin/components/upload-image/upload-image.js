@@ -3,31 +3,177 @@ Component({
   options: {
     multipleSlots: true, // 启用多slot支持
   },
+  attached: function(){
+    setTimeout(() => {
+      let a = wx.createCanvasContext('asdasd');
+      console.log(a)
+    }, 2000)
+  },
   data: {
-    uploadImgUrl: 'https://test-yhb-node.xwfintech.com/static/imgs/help-center/fill.png',
+    // uploadImgUrl: 'https://test-yhb-node.xwfintech.com/static/imgs/help-center/fill.png',
     uploadSuccessList: [],
-    uploadResultList: []
+    uploadResultList: [],
+    showUpload: false,
+    limitNumber: 10,
+    cWidth:'',
+    cHeight:'',
+    quality: 0.5,
+    uploadImagePath: '',
+    imagePath: [],
   },
   properties: {
+    uploadImageUrl: {
+      type: String,
+      default: ''
+    }
   },
   test(){
     console.log(234)
   },
-  getSetting() {
-    return new Promise((resolve, reject) => {
-      wx.getSetting({
-        success: function (res) {
-          console.log('getSetting------------------', res)
-          console.log('')
-          resolve(res.authSetting)
-        },
-        fail: function (res) {
-          reject(res)
-        }
-      })
-    })
-  },
   methods: {
+    chooseImage(args = {}) {
+      return new Promise((resolve, reject) => {
+        wx.chooseImage({
+          count: args.count || 1,
+          sourceType: args.sourceType || [
+            'album', 'camera'
+          ],
+          sizeType: args.sizeType || ['compressed'],
+          success: function (res) {
+            resolve(res)
+          },
+          fail: function (res) {
+            reject(res)
+          }
+        })
+      })
+    },
+    addImage(args = {}) {
+      let that = this,remainderNumber = this.data.limitNumber - this.data.uploadSuccessList.length
+      
+      //贷款用途图片压缩
+      this.chooseImage({ sizeType: ['original'], count: remainderNumber })
+        .then(res => {
+          const {tempFilePaths = [],tempFiles = []} = res;
+          wx.showLoading({
+            title: `上传中`,
+            mask: true
+          });
+          let promiseAll = []
+          for(let i = 0, len = tempFiles.length; i < len; i++) { // 遍历上传图片
+            let {path, size} = tempFiles[i] || {};
+            let image = tempFilePaths[i]
+            promiseAll.push(that.uploadImageItem(path, image))
+          }
+          Promise.all(promiseAll).then(res => {
+            console.log('全部加载完成', that.data.uploadResultList, that.data.uploadSuccessList)
+            wx.hideLoading()
+          })
+          
+        }, error => {
+          const {errMsg = ''} = error || {};
+          if(errMsg.indexOf('cancel') === -1) {
+            untils.showModal({
+              content: '获取图片失败，请拍摄5兆以内大小的图片',
+              showCancel: false
+            });
+          }
+        });
+    },
+    uploadLoanPurchase(path) {
+      let that = this
+      return new Promise((resolve, reject) => {
+        let args = {
+          url: 'common/loan_purpose_datum',
+          filePath: path,
+          name: 'images'
+        };
+        wx.uploadFile({
+          url: that.data.uploadImageUrl,
+          filePath: args.filePath,
+          name: args.name,
+          success: response => {
+            console.log(response, that.data.uploadSuccessList, path)
+            const data = JSON.parse(response.data);
+            const { url = '' } = data.data || {}
+            const arr = that.data.uploadSuccessList.slice()
+            const arr1 = that.data.uploadResultList.slice()
+            arr.push(path)
+            arr1.push(url)
+            console.log(4444, url)
+            that.setData({
+              uploadSuccessList: arr,
+              uploadResultList: arr1
+            })
+            wx.hideLoading();
+            resolve(path)
+          },
+          fail: err => {
+            reject(err)
+          }
+        })
+      })
+    },
+    // 单张图片上传
+    uploadImageItem(path, image){
+      let that = this
+      return new Promise((resolve, reject) => {
+        wx.getImageInfo({
+          src: path,
+          success: function (res) {
+            let scale=res.width/res.height//获取原图比例
+            //构造画板宽高
+            that.cWidth = 500
+            that.cHeight = 500/scale
+            that.setData({
+              cWidth: 500,
+              cHeight: 500/scale
+            })
+            setTimeout(()=>{ // 100ms的延时用于canvas初始化
+              that.myCanvasImg(image, that.cWidth, that.cHeight, that.quality).then(res=> { // canvas绘图
+                that.uploadImagePath = res.tempFilePath;
+                that.uploadLoanPurchase(that.uploadImagePath).then(res => { // 上传绘图
+                  resolve(res)
+                }, err=> {
+                  reject(err)
+                })
+              }, err => {
+                reject(err)
+              })
+            }, 100)
+          }
+        })
+      })
+    },
+    /**
+     * 质量压缩
+    */
+    myCanvasImg(tempFilePaths, canvasWidth, canvasHeight, quality) {
+      return new Promise((resolve, reject) => {
+        var that = this; 
+        const ctx = wx.createCanvasContext('asdasd', that);
+        console.log(234, ctx)
+        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+        console.log(12321321, tempFilePaths, 0, 0, canvasWidth, canvasHeight)
+        ctx.drawImage(tempFilePaths, 0, 0, canvasWidth, canvasHeight);        
+        ctx.draw(false, setTimeout(()=>{
+          wx.canvasToTempFilePath({
+            canvasId: 'asdasd',
+            fileType: 'jpg',
+            quality: quality,
+            success: res => {
+              resolve(res)
+            }, fail: function (e) {
+              wx.showToast({
+                title: '图片上传失败，请重新上传！',
+                icon: 'none'
+              })
+              reject(e)
+            }
+          }, that);
+        }, 1000));
+      })
+    },
     getSetting() {
       return new Promise((resolve, reject) => {
         wx.getSetting({
@@ -87,6 +233,27 @@ Component({
         sizeType: ['compressed'],
         success:  (res)=> {
           let file = res.tempFiles[0].path
+          const ctx = wx.createCanvasContext('asdasd');
+          console.log(234, ctx)
+          ctx.clearRect(0, 0, 500, 500);
+          console.log(12321321, tempFilePaths, 0, 0, 500, 500)
+          ctx.drawImage(tempFilePaths, 0, 0, 500, 500);        
+          ctx.draw(false, setTimeout(()=>{
+            wx.canvasToTempFilePath({
+              canvasId: 'asdasd',
+              fileType: 'jpg',
+              quality: quality,
+              success: res => {
+                resolve(res)
+              }, fail: function (e) {
+                wx.showToast({
+                  title: '图片上传失败，请重新上传！',
+                  icon: 'none'
+                })
+                reject(e)
+              }
+            });
+          }, 1000))
           if(file) {
             wx.showLoading({
               title: '上传中',
@@ -99,7 +266,7 @@ Component({
             };
             let requestUrl = 'https://test-yhb-node.xwfintech.com/api/v1/' + args.url;
             wx.uploadFile({
-              url: requestUrl,
+              url: that.data.uploadImageUrl,
               filePath: args.filePath,
               name: args.name,
               success: response => {
