@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2020-03-13 16:28:36
+ * @LastEditTime: 2020-04-02 14:35:08
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \WXPlugin\plugin\components\upload-image\upload-image.js
+ */
 
 import regeneratorRuntime from '../../lib/runtime'
 Component({
@@ -26,7 +34,7 @@ Component({
     },
     limitNumber: {
       type: Number,
-      value: 4
+      value: 10
     }
   },
   methods: {
