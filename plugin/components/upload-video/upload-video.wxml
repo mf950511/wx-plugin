@@ -1,0 +1,11 @@
+<view class="upload-wrapper">
+  <view wx:for="{{videoPath}}" class="upload-end">
+    <video class="upload-file" show-center-play-btn="{{ false }}" controls="{{ false }}" data-index="{{ index }}" data-video="{{ item.url }}" src="{{ item.url }}" bindtap="play"></video>
+    <icon type="clear" size="{{18}}" color="#E02020" class="upload-delete" wx:if="{{ item.showDelete }}" data-video="{{ index }}" bindtap="deleteVideo"/>
+  </view>
+  <view class="upload upload-end" bindtap="uploadVideo">
+    <image class="add-image" src="{{uploadImgUrl}}"></image>
+  </view>
+</view>
+<video class="upload-file" src="{{ activeVideo }}" style="display: none" id="video"></video>
+<button class="confirmBtn" bindtap="confirm">点击确认</button>

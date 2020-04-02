@@ -1,7 +1,8 @@
 {
   "publicComponents": {
     "input-item": "components/input-item/input-item",
-    "upload-image": "components/upload-image/upload-image"
+    "upload-image": "components/upload-image/upload-image",
+    "upload-video": "components/upload-video/upload-video"
   },
   "pages": {
     "fill-info": "pages/fill_info/fill_info"

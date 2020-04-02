@@ -1,0 +1,3 @@
+<view class="test-upload-image">
+  <upload-video bind:upload-video="uploadVideo"  bind:upload-fail="uploadFail" uploadImageObj="{{ uploadObject }}"></upload-video>
+</view>

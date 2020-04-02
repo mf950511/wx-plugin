@@ -1,3 +1,3 @@
 <view class="test-upload-image">
-  <upload-image bind:upload-image="uploadImage"></upload-image>
+  <upload-image bind:upload-image="uploadImage" bind:upload-fail="uploadFail" uploadImageObj="{{ uploadObject }}" limitNumber="10"></upload-image>
 </view>

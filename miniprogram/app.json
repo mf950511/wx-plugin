@@ -2,7 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/test-plugin/test-plugin",
-    "pages/test-image/test-image"
+    "pages/test-image/test-image",
+    "pages/test-video/test-video"
   ],
   "plugins": {
     "myPlugin": {
