@@ -1,0 +1,78 @@
+<view class="upload-information">
+  <view class="upload-information-warn">
+    <view class="title">请完成以下资料上传，资料要求</view>
+    <view class="tip-list">
+      <view>真实有效</view>
+      <view>内容完整</view>
+      <view>画面清晰</view>
+      <view>亮度均匀</view>
+    </view>
+  </view>
+  <view class="upload-information-tab">
+    <view class="tab-wrapper">
+      <view class="tab active">
+        <view class="tab-title">资料一</view>
+        <view class="tab-desc">未完成</view>
+      </view>
+      <view class="tab">
+        <view class="tab-title">资料一</view>
+        <view class="tab-desc">未完成</view>
+      </view>
+      <view class="tab">
+        <view class="tab-title">资料一</view>
+        <view class="tab-desc">未完成</view>
+      </view>
+      <view class="tab">
+        <view class="tab-title">资料一</view>
+        <view class="tab-desc">未完成</view>
+      </view>
+    </view>
+    <scroll-view scroll-x="{{ true }}" class="tab-scroll">
+      <view class="scroll-wrapper">
+        <view class="tab active">
+          <view class="tab-title">资料一</view>
+          <view class="tab-desc">未完成</view>
+        </view>
+        <view class="tab">
+          <view class="tab-title">资料一</view>
+          <view class="tab-desc">未完成</view>
+        </view>
+        <view class="tab">
+          <view class="tab-title">资料一</view>
+          <view class="tab-desc">未完成</view>
+        </view>
+        <view class="tab">
+          <view class="tab-title">资料一</view>
+          <view class="tab-desc">未完成</view>
+        </view>
+        <view class="tab">
+          <view class="tab-title">资料一</view>
+          <view class="tab-desc">未完成</view>
+        </view>
+      </view>
+      
+    </scroll-view>
+  </view>
+  <view class="upload-information-content">
+    <view class="line-list">
+      <view class="content-title">个人保险资料</view>
+      <view class="examples">示例</view>
+    </view>
+    <view class="content-desc">请上传纸质保单与线上保单查询截图</view>
+    <view class="content-title">资料标题+证明形式</view>
+    <view class="upload-single-wrapper">
+      <block class="test" wx:for="{{ testArray }}">
+        <upload-single testTitle="{{ iconDesc }}" chooseType="video" chooseVideoConfig="{{ videoConfig }}" uploadObject="{{ uploadVideoObject }}"></upload-single>
+      </block>
+    </view>
+    
+    <view class="content-title">资料标题+证明形式</view>
+    <!-- <upload-single1 title="123"></upload-single1> -->
+    <view class="upload-single-wrapper">
+      <block class="test1" wx:for="{{ testArray2 }}">
+        <upload-single chooseType="image" bind:upload-image="uploadImage" uploadObject="{{ uploadImageObject }}" quality="0.4"></upload-single>
+      </block>
+    </view>
+    <view class="upload-btn">确认上传</view>
+  </view>
+</view>

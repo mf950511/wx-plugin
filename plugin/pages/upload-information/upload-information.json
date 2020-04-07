@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "上传证明材料",
+  "usingComponents": {
+    "upload-single": "../../components/upload-single/upload-single",
+    "upload-single1": "../../components/upload-single/upload-single"
+  }
+}

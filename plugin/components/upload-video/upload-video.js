@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-04-02 11:34:18
- * @LastEditTime: 2020-04-02 14:03:36
+ * @LastEditTime: 2020-04-03 18:22:10
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \WXPlugin\plugin\components\upload-video\upload-video.js
@@ -32,8 +32,8 @@ Component({
     chooseVideoConfig: {
       type: Object,
       value: {
-        sourceType: ['album','camera'],
-        maxDuration: 60,
+        sourceType: ['camera', 'album'],
+        maxDuration: 30,
         camera: 'back',
         compressed: true,
       }
@@ -52,12 +52,20 @@ Component({
       video.requestFullScreen()
     },
     uploadVideo(){
+      console.log(234)
       wx.chooseVideo({
         ...this.data.chooseVideoConfig,
         success: (res)=> {
-          console.log(res.tempFilePath)
+          const { tempFilePath, duration } = res
+          console.log(res.tempFilePath, res, duration, this.data.chooseVideoConfig.maxDuration)
+          if(duration > this.data.chooseVideoConfig.maxDuration) {
+            wx.showModal({
+              content: "上传视频时间过长"
+            })
+            return
+          }
           const obj = {
-            url: res.tempFilePath,
+            url: tempFilePath,
             showDelete: true
           }
           const arr1 = [...this.data.videoPath, obj]

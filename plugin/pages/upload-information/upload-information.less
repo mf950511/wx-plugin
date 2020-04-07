@@ -1,0 +1,148 @@
+/*
+ * @Author: your name
+ * @Date: 2020-04-07 10:03:07
+ * @LastEditTime: 2020-04-07 13:59:04
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \WXPlugin\plugin\pages\upload-information\upload-information.js
+ */
+ page{
+   background: #fff;
+ }
+.upload-information{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  .upload-information-warn{
+    width: 686rpx;
+    background: #F2F9F6;
+    border-radius: 2rpx;
+    margin-top: 16rpx;
+    color: #008656;
+    padding: 18rpx 0;
+    .title{
+      text-align: center;
+      font-size: 32rpx;
+      font-weight: 500;
+      margin-bottom: 19rpx;
+      line-height: 45rpx;
+    }
+    .tip-list{
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      view{
+        padding-left: 35rpx;
+        position: relative;
+        height: 33rpx;
+        line-height: 33rpx;
+        font-size: 24rpx;
+        &:after{
+          position: absolute;
+          content: '';
+          top: 50%;
+          transform: translateY(-50%);
+          left: 5rpx;
+          width: 12rpx;
+          height: 12rpx;
+          background: #008656;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+  .upload-information-tab{
+    margin-top: 21rpx;
+    width: 100%;
+    border-bottom: 1rpx solid rgba(0, 0, 0, 0.1);
+    .tab{
+      text-align: center;
+      color: rgba(0, 0, 0, 0.5);
+      padding-bottom: 14rpx;
+      &.active{
+        .tab-title{
+          color: #000;
+        }
+      }
+      .tab-title{
+        font-size: 32rpx;
+        line-height: 45rpx;
+      }
+      .tab-desc{
+        font-size: 22rpx;
+        line-height: 30rpx;
+      }
+    }
+    .tab-wrapper{
+      display: flex;
+      align-items: center;
+      .tab{
+        flex: 1;
+      }
+    }
+    .tab-scroll{
+      .scroll-wrapper{
+        display: flex;
+        align-items: center;
+        .tab{
+          flex-shrink: 0;
+          width: 28vw;
+        }
+      }
+      
+    }
+  }
+  .upload-information-content{
+    flex: 1;
+    overflow: auto;
+    width: 100vw;
+    padding-bottom: 42rpx;
+    .line-list{
+      display: flex;
+      justify-content: space-between;
+      margin-top: 32rpx;
+      .content-title{
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+    }
+    .examples, .content-title, .content-desc{
+      padding: 0 42rpx;
+    }
+    .content-title{
+      font-size: 28rpx;
+      color: #000;
+      font-weight: 500;
+      margin-top: 32rpx;
+      margin-bottom: 16rpx;
+    }
+    .content-desc{
+      font-size: 24rpx;
+      color: rgba(0, 0, 0, 0.5);
+      margin-top: 11rpx;
+    }
+    .examples{
+      color: #488BFE;
+      font-size: 28rpx;
+    }
+    .upload-single-wrapper{
+      padding: 0 42rpx;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .upload-btn{
+      width: 666rpx;
+      height: 92rpx;
+      background: #4C93FE;
+      line-height: 92rpx;
+      text-align: center;
+      font-size: 36rpx;
+      color: #fff;
+      border-radius: 10rpx;
+      margin-left: 42rpx;
+      margin-top: 42rpx;
+    }
+  }
+}

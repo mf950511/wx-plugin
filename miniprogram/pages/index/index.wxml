@@ -1,10 +1,10 @@
 
 <view class="test">
-  <!-- <view class="wrapper">
-    <navigator url="plugin://myPlugin/fill-info">
+  <view class="wrapper">
+    <navigator url="plugin://myPlugin/upload-information">
       我是路由跳转插件
     </navigator>
-  </view> -->
+  </view>
   <button bindtap="getAuth" class="red">我要获取视频录音权限</button>
   <button bindtap="liveness" class="red">我是事件跳转插件</button>
   <button bindtap="testPlugin" class="blue">跳转插件页面</button>

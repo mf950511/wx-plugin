@@ -1,0 +1,5 @@
+<canvas canvas-id='canvas-1' class='myCanvas' style="width:{{cWidth}}px;height:{{cHeight}}px;position: fixed;top: -9999px;left: -9999px;"></canvas>
+<view class="upload-single" bindtap = "selectContent">
+  <image class="upload-icon" src="{{ uploadImgUrl }}"></image>
+  <view class="upload-title" wx:if="{{ iconDesc }}">{{ iconDesc }}</view>
+</view>
