@@ -1,5 +1,14 @@
 <canvas canvas-id='canvas-1' class='myCanvas' style="width:{{cWidth}}px;height:{{cHeight}}px;position: fixed;top: -9999px;left: -9999px;"></canvas>
-<view class="upload-single" bindtap = "selectContent">
+<view class="upload-single" bindtap = "selectContent"  wx:if="{{ !url }}">
   <image class="upload-icon" src="{{ uploadImgUrl }}"></image>
   <view class="upload-title" wx:if="{{ iconDesc }}">{{ iconDesc }}</view>
+</view>
+<view class="upload-single" wx:if="{{ chooseType === 'image' && url }}">
+  <image lazy-load="true" mode="aspectFill" class="upload-image" src="{{ url }}" data-image="{{ url }}" bindtap="previewImage"></image>
+  <icon type="clear" size="{{18}}" color="#E02020" class="upload-delete" wx:if="{{ showDelete }}" data-delete="{{ urlIndex }}" bindtap="deleteImage"/>
+</view>
+<view class="upload-single" wx:if="{{ chooseType === 'video' && url }}">
+  <image lazy-load="true" mode="aspectFill" class="upload-image" src="{{ url }}"  data-index="{{ urlIndex }}" bindtap="play"></image>
+  <video class="upload-file" id="video-{{ urlIndex }}" bindended="endVideo" style="display: none" controls="{{ true }}" src="{{ videoSrc }}"></video>
+  <icon type="clear" size="{{18}}" color="#E02020" class="upload-delete" wx:if="{{ showDelete }}" data-delete="{{ urlIndex }}" bindtap="deleteVideo"/>
 </view>

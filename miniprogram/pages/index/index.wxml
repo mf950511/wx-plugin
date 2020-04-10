@@ -4,6 +4,9 @@
     <navigator url="plugin://myPlugin/upload-information">
       我是路由跳转插件
     </navigator>
+    <navigator url="plugin://myPlugin/video">
+      我是路由跳转插件
+    </navigator>
   </view>
   <button bindtap="getAuth" class="red">我要获取视频录音权限</button>
   <button bindtap="liveness" class="red">我是事件跳转插件</button>

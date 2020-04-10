@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-04-02 11:34:18
- * @LastEditTime: 2020-04-07 14:49:08
+ * @LastEditTime: 2020-04-10 15:24:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \WXPlugin\plugin\components\upload-video\upload-video.js
@@ -33,10 +33,6 @@ Component({
       type: Object,
       value: {}
     },
-    videoPath: {
-      type: Array,
-      value: []
-    },
     quality: {
       type: Number,
       value: 0.5
@@ -49,6 +45,22 @@ Component({
         camera: 'back',
         compressed: true,
       }
+    },
+    url: {
+      type: String,
+      value: ''
+    },
+    urlIndex: {
+      type: String,
+      value: ''
+    },
+    showDelete: {
+      type: Boolean,
+      value: false
+    },
+    videoSrc: {
+      type: String,
+      value: ''
     }
   },
   methods: {
@@ -90,7 +102,8 @@ Component({
           that.uploadImageItem(path, image).then(res => {
             let obj = {
               url: res,
-              showDelete: true
+              showDelete: true,
+              index: +(that.data.urlIndex)
             }
             that.triggerEvent('upload-image', obj)
             wx.hideLoading()
@@ -120,14 +133,12 @@ Component({
           success: function (res) {
             let scale=res.width/res.height//获取原图比例
             //构造画板宽高
-            that.cWidth = 500
-            that.cHeight = 500/scale
             that.setData({
               cWidth: 500,
               cHeight: 500/scale
             })
             setTimeout(()=>{ // 100ms的延时用于canvas初始化
-              that.myCanvasImg(image, that.cWidth, that.cHeight, that.quality).then(res=> { // canvas绘图
+              that.myCanvasImg(image, that.data.cWidth, that.data.cHeight, that.data.quality).then(res=> { // canvas绘图
                 that.uploadSingleImage(res.tempFilePath).then(res => { // 上传绘图
                   resolve(res)
                 }, err=> {
@@ -184,19 +195,43 @@ Component({
         })
       })
     },
+    deleteVideo(e) {
+      console.log(e)
+      const data = e.currentTarget.dataset || {}
+      const { delete: index } = data
+      this.triggerEvent('delete-video', { index })
+    },
+    deleteImage(e) {
+      console.log(e)
+      const data = e.currentTarget.dataset || {}
+      const { delete: index } = data
+      this.triggerEvent('delete-image', { index })
+    },
+    previewImage(e){
+      console.log(e)
+      const data = e.currentTarget.dataset || {}
+      const { image: item } = data
+      const arr = [item]
+      wx.previewImage({
+        current: item, // 当前显示图片的http链接
+        urls: arr // 需要预览的图片http链接列表
+      })
+    },
+    endVideo(e){
+      this.video.exitFullScreen()
+    },
     play(e){
       const data = e.currentTarget.dataset || {}
-      const { video: item } = data
-      this.setData({
-        activeVideo: item
-      })
-      const video = wx.createVideoContext(`video`, this)
-      video.play()
-      video.showStatusBar()
-      video.requestFullScreen()
+      const { index } = data
+      this.video = wx.createVideoContext(`video-${ index }`, this)
+      this.video.play()
+      this.video.showStatusBar()
+      this.video.requestFullScreen()
     },
     uploadVideo(){
       console.log(234)
+      this.triggerEvent('upload-video', { index: this.data.urlIndex })
+      return
       wx.chooseVideo({
         ...this.data.chooseVideoConfig,
         success: (res)=> {
@@ -223,16 +258,5 @@ Component({
         }
       })
     },
-    deleteVideo(e) {
-      console.log(e)
-      const data = e.currentTarget.dataset || {}
-      const { video: index } = data
-      console.log(index, data)
-      this.data.videoPath.splice(index, 1)
-      const arr1 = this.data.videoPath.slice()
-      this.setData({
-        videoPath: arr1
-      })
-    }
   }
 })

@@ -1,0 +1,9 @@
+<camera id="myCamera1" class="camera-camera" flash="off" binderror="error" device-position="back" >
+  <cover-view class="operator" wx:if="{{ !hasEnd }}" bindtap="operator">
+    <cover-view class="start" wx:if="{{ !hasStart }}"></cover-view>
+    <cover-view class="pause" wx:else></cover-view>
+  </cover-view>
+  <cover-view class="restart" wx:if="{{ hasEnd }}" bindtap="restart">重试</cover-view>
+  <cover-view class="success" wx:if="{{ hasEnd }}" bindtap="success">完成</cover-view>
+</camera>
+<canvas id="camera-canvas" canvas-id='camera-canvas' class="camera-canvas"></canvas>

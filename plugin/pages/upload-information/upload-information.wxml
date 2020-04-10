@@ -1,4 +1,5 @@
 <view class="upload-information">
+  <camera-video wx:if="{{ showVideo }}" bind:video-success="videoSuccess"></camera-video>
   <view class="upload-information-warn">
     <view class="title">请完成以下资料上传，资料要求</view>
     <view class="tip-list">
@@ -62,7 +63,17 @@
     <view class="content-title">资料标题+证明形式</view>
     <view class="upload-single-wrapper">
       <block class="test" wx:for="{{ testArray }}">
-        <upload-single testTitle="{{ iconDesc }}" chooseType="video" chooseVideoConfig="{{ videoConfig }}" uploadObject="{{ uploadVideoObject }}"></upload-single>
+        <upload-single 
+        testTitle="{{ iconDesc }}" 
+        chooseType="video" 
+        bind:upload-video="uploadVideo" 
+        bind:delete-video="deleteVideo" 
+        urlIndex="{{ index }}" 
+        url="{{ item.url }}"
+        videoSrc="{{ item.videoSrc }}"
+        showDelete="{{ item.showDelete }}"
+        chooseVideoConfig="{{ videoConfig }}" 
+        uploadObject="{{ uploadVideoObject }}"></upload-single>
       </block>
     </view>
     
@@ -70,7 +81,15 @@
     <!-- <upload-single1 title="123"></upload-single1> -->
     <view class="upload-single-wrapper">
       <block class="test1" wx:for="{{ testArray2 }}">
-        <upload-single chooseType="image" bind:upload-image="uploadImage" uploadObject="{{ uploadImageObject }}" quality="0.4"></upload-single>
+        <upload-single 
+        chooseType="image" 
+        bind:upload-image="uploadImage" 
+        bind:delete-image="deleteImage"
+        urlIndex="{{ index }}" 
+        url="{{ item.url }}"
+        showDelete="{{ item.showDelete }}"
+        uploadObject="{{ uploadImageObject }}" 
+        quality="0.4"></upload-single>
       </block>
     </view>
     <view class="upload-btn">确认上传</view>

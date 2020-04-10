@@ -1,0 +1,60 @@
+.camera-camera {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2;
+}
+.camera-camera .operator {
+  position: absolute;
+  bottom: 80rpx;
+  left: 300rpx;
+  border-radius: 50%;
+  border: 16rpx solid #fff;
+  width: 150rpx;
+  height: 150rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.camera-camera .operator .start {
+  width: 130rpx;
+  height: 130rpx;
+  border-radius: 50%;
+  background: #fff;
+}
+.camera-camera .operator .pause {
+  width: 84rpx;
+  height: 84rpx;
+  background: #fff;
+  border-radius: 10rpx;
+}
+.camera-camera .restart,
+.camera-camera .success {
+  position: absolute;
+  bottom: 130rpx;
+  width: 150rpx;
+  height: 80rpx;
+  border-radius: 6rpx;
+  text-align: center;
+  line-height: 80rpx;
+}
+.camera-camera .restart {
+  left: 58rpx;
+  background: #fff;
+  color: #67C800;
+}
+.camera-camera .success {
+  right: 58rpx;
+  background: #67C800;
+  color: #fff;
+}
+.camera-canvas {
+  width: 750rpx;
+  height: 300rpx;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 3;
+}
