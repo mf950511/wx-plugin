@@ -10,48 +10,19 @@
     </view>
   </view>
   <view class="upload-information-tab">
-    <view class="tab-wrapper">
-      <view class="tab active">
-        <view class="tab-title">资料一</view>
-        <view class="tab-desc">未完成</view>
-      </view>
-      <view class="tab">
-        <view class="tab-title">资料一</view>
-        <view class="tab-desc">未完成</view>
-      </view>
-      <view class="tab">
-        <view class="tab-title">资料一</view>
-        <view class="tab-desc">未完成</view>
-      </view>
-      <view class="tab">
-        <view class="tab-title">资料一</view>
-        <view class="tab-desc">未完成</view>
+    <view class="tab-wrapper" wx:if="{{ configData.length <= 4 }}">
+      <view class="tab {{ activeIndex === index ? 'active' : ''}}" wx:for="{{ configData }}" wx:key="index" data-index="{{ index }}" bindtap="changeConfig">
+        <view class="tab-title">{{ item.name }}</view>
+        <view class="tab-desc">{{ item.status }}</view>
       </view>
     </view>
-    <scroll-view scroll-x="{{ true }}" class="tab-scroll">
+    <scroll-view scroll-x="{{ true }}" class="tab-scroll" wx:if="{{ configData.length > 4 }}">
       <view class="scroll-wrapper">
-        <view class="tab active">
-          <view class="tab-title">资料一</view>
-          <view class="tab-desc">未完成</view>
-        </view>
-        <view class="tab">
-          <view class="tab-title">资料一</view>
-          <view class="tab-desc">未完成</view>
-        </view>
-        <view class="tab">
-          <view class="tab-title">资料一</view>
-          <view class="tab-desc">未完成</view>
-        </view>
-        <view class="tab">
-          <view class="tab-title">资料一</view>
-          <view class="tab-desc">未完成</view>
-        </view>
-        <view class="tab">
-          <view class="tab-title">资料一</view>
-          <view class="tab-desc">未完成</view>
+        <view class="tab active" wx:for="{{ configData }}" wx:key="index" data-index="{{ index }}" bindtap="changeConfig">
+          <view class="tab-title">{{ item.title }}</view>
+          <view class="tab-desc">{{ item.status }}</view>
         </view>
       </view>
-      
     </scroll-view>
   </view>
   <view class="upload-information-content">
@@ -60,38 +31,35 @@
       <view class="examples">示例</view>
     </view>
     <view class="content-desc">请上传纸质保单与线上保单查询截图</view>
-    <view class="content-title">资料标题+证明形式</view>
-    <view class="upload-single-wrapper">
-      <block class="test" wx:for="{{ testArray }}">
-        <upload-single 
-        testTitle="{{ iconDesc }}" 
-        chooseType="video" 
-        bind:upload-video="uploadVideo" 
-        bind:delete-video="deleteVideo" 
-        urlIndex="{{ index }}" 
-        url="{{ item.url }}"
-        videoSrc="{{ item.videoSrc }}"
-        showDelete="{{ item.showDelete }}"
-        chooseVideoConfig="{{ videoConfig }}" 
-        uploadObject="{{ uploadVideoObject }}"></upload-single>
-      </block>
+    <view wx:for="{{ activeConfig }}" wx:key="index">
+      <view class="content-title">{{ item.title }}</view>
+      <view class="upload-single-wrapper">
+        <block class="test" wx:for="{{ item.dataArray }}" wx:for-item="single" wx:for-index="singleIndex">
+          <upload-single-video
+          iconDesc="{{ single.iconDesc }}" 
+          bind:upload-video="uploadVideo" 
+          bind:delete-video="deleteSingle" 
+          data-configIndex="{{ index }}"
+          data-urlIndex="{{ singleIndex }}"
+          urlIndex="{{ '' + single + index }}" 
+          url="{{ single.url }}"
+          videoSrc="{{ single.videoSrc }}"
+          showDelete="{{ single.showDelete }}"
+          chooseVideoConfig="{{ videoConfig }}" 
+          wx:if="{{ item.type === 'video' }}"></upload-single-video>
+          <upload-single-image 
+          iconDesc="{{ single.iconDesc }}" 
+          bind:upload-image="uploadImage" 
+          bind:delete-image="deleteSingle" 
+          data-configIndex="{{ index }}"
+          data-urlIndex="{{ singleIndex }}"
+          url="{{ single.url }}"
+          showDelete="{{ single.showDelete }}"
+          uploadObject="{{ uploadImageObject }}"
+          wx:if="{{ item.type === 'image' }}"></upload-single-image>
+        </block>
+      </view>
     </view>
-    
-    <view class="content-title">资料标题+证明形式</view>
-    <!-- <upload-single1 title="123"></upload-single1> -->
-    <view class="upload-single-wrapper">
-      <block class="test1" wx:for="{{ testArray2 }}">
-        <upload-single 
-        chooseType="image" 
-        bind:upload-image="uploadImage" 
-        bind:delete-image="deleteImage"
-        urlIndex="{{ index }}" 
-        url="{{ item.url }}"
-        showDelete="{{ item.showDelete }}"
-        uploadObject="{{ uploadImageObject }}" 
-        quality="0.4"></upload-single>
-      </block>
-    </view>
-    <view class="upload-btn">确认上传</view>
+    <view class="upload-btn" bindtap="uploadAll">确认上传</view>
   </view>
 </view>

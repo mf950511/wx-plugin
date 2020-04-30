@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-01-16 13:44:14
- * @LastEditTime: 2020-04-02 13:43:36
+ * @LastEditTime: 2020-04-30 17:16:59
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \WXPlugin\miniprogram\pages\index\index.js
@@ -12,7 +12,11 @@ Page({
   data: {
   },
   onLoad: function() {
-    plugin.getData()
+    plugin.getData().then(res => {
+      console.log(66666, res)
+    }, err => {
+      console.log(77777, err)
+    })
     
     console.log(untils)
   },

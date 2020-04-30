@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-04-02 11:34:18
- * @LastEditTime: 2020-04-03 18:22:10
+ * @LastEditTime: 2020-04-10 16:40:47
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \WXPlugin\plugin\components\upload-video\upload-video.js
@@ -33,7 +33,7 @@ Component({
       type: Object,
       value: {
         sourceType: ['camera', 'album'],
-        maxDuration: 30,
+        maxDuration: 10,
         camera: 'back',
         compressed: true,
       }
@@ -72,7 +72,13 @@ Component({
           this.setData({
             videoPath: arr1
           })
-          this.triggerEvent('upload-video', this.data.videoPath)
+          wx.setStorage({
+            key:"test",
+            data:"value"
+          })
+          setTimeout(() => {
+            this.triggerEvent('upload-video', this.data.videoPath)
+          }, 1000)
         },
         err: (err) => {
           this.triggerEvent('upload-fail', err)

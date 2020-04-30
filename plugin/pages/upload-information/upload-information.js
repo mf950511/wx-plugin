@@ -1,15 +1,15 @@
 /*
  * @Author: your name
  * @Date: 2020-04-07 10:03:07
- * @LastEditTime: 2020-04-10 15:20:34
+ * @LastEditTime: 2020-04-30 17:15:57
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \WXPlugin\plugin\pages\upload-information\upload-information.js
  */
 Page({
   data: {
-    testArray: [1,2,3],
-    testArray2: [1],
+    testArray: [],
+    testArray2: [],
     uploadImageObject: {
       url: "https://test-yhb-node.xwfintech.com/api/v1/serveInside/help_feedback",
       name: "images",
@@ -31,67 +31,174 @@ Page({
       camera: 'back',
       compressed: true,
     },
-    showVideo: false
+    showVideo: false,
+    configData: [
+      {
+        name: '资料一',
+        status: '未完成',
+        config: [
+          {
+            title: '资料标题+证明形式',
+            type: 'image',
+            dataArray: [
+              {
+                url: '',
+                iconDesc: '保险受益人页'
+              },
+              {
+                url: '',
+                iconDesc: '保险理赔页'
+              },
+              {
+                url: '',
+                iconDesc: '自定义页'
+              }
+            ]
+          },
+          {
+            title: '视频资料',
+            type: 'video',
+            dataArray: [
+              {
+                url: '',
+                iconDesc: '保险受益视频'
+              },
+              {
+                url: '',
+                iconDesc: '保险理赔视频'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        name: '资料二',
+        status: '未完成',
+        config: [
+          {
+            title: '证明形式',
+            type: 'image',
+            dataArray: [
+              {
+                url: '',
+                iconDesc: '受益人页'
+              },
+              {
+                url: '',
+                iconDesc: '理赔页'
+              },
+              {
+                url: '',
+                iconDesc: '自定义页'
+              }
+            ]
+          },
+          {
+            title: '视频资料',
+            type: 'video',
+            dataArray: [
+              {
+                url: '',
+                iconDesc: '受益视频'
+              },
+              {
+                url: '',
+                iconDesc: '理赔视频'
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    activeConfig: [],
+    activeIndex: 0,
   },
-  videoSuccess(res){
-    console.log(res)
-    const videoInfo = res.detail || {}
-    const { videoSrc, imageSrc } = videoInfo
-    const index = this.videoIndex
-    this.data.testArray[index] = {
-      url: imageSrc,
-      urlIndex: index,
-      showDelete: true,
-      videoSrc: videoSrc
-    }
-    console.log(imageSrc, index, this.data.testArray)
+  onLoad: function(){
+    console.log(123, this.data.configData[this.data.activeIndex].config)
     this.setData({
-      testArray: this.data.testArray,
-      showVideo: false
+      activeConfig: this.data.configData[this.data.activeIndex].config
     })
   },
-  uploadVideo(res){
-    const indexInfo = res.detail || {}
-    const { index } = indexInfo
-    this.videoIndex = index
+  uploadAll(){
+    try {
+      console.log(123123, this.data.configData)
+      wx.setStorageSync('test', this.data.configData)
+      wx.navigateBack();
+    } catch (e) { 
+      console.log('出错了', e)
+    }
+  },
+  changeConfig(e){
+    const data = e.currentTarget.dataset || {}
+    const { index = 0 } = data
+    console.log(index)
+    this.setData({
+      activeIndex: index,
+      activeConfig: this.data.configData[index].config
+    })
+  },
+  videoSuccess(e){
+    console.log(e)
+    const videoInfo = e.detail || {}
+    const { videoSrc = '', imageSrc = '' } = videoInfo
+    const configindex = this.activieVideoConfigindex || 0
+    const urlindex = this.activieVideoUrlindex || 0
+
+    const cloneObj = this.data.activeConfig[configindex] || {}
+    cloneObj.dataArray[urlindex] = {
+      ...cloneObj.dataArray[urlindex],
+      url: imageSrc,
+      videoSrc,
+      showDelete: true
+    }
+
+    this.setData({
+      activeConfig: this.data.activeConfig,
+      showVideo: false
+    }, () => {
+      console.log(this.data.activeConfig)
+    })
+
+  },
+  uploadVideo(e){
+    const data = e.currentTarget.dataset || {}
+    const { configindex = 0, urlindex = 0 } = data
+    this.activieVideoConfigindex = configindex
+    this.activieVideoUrlindex = urlindex
     this.setData({
       showVideo: true
     })
   },
-  deleteVideo(res) {
-    const indexInfo = res.detail || {}
-    const { index } = indexInfo
-    const obj = {
+  deleteSingle(e){
+    const data = e.currentTarget.dataset || {}
+    const { configindex = 0, urlindex = 0 } = data
+    const cloneObj = this.data.activeConfig[configindex] || {}
+    cloneObj.dataArray[urlindex] = {
+      ...cloneObj.dataArray[urlindex],
       url: '',
-      urlIndex: index,
       showDelete: false
     }
-    this.data.testArray[index] = obj
     this.setData({
-      testArray: this.data.testArray
+      activeConfig: this.data.activeConfig
+    }, () => {
+      console.log(this.data.activeConfig)
     })
   },
-  deleteImage(res){
-    const indexInfo = res.detail || {}
-    const { index } = indexInfo
-    const obj = {
-      url: '',
-      urlIndex: index,
-      showDelete: false
+  uploadImage(e){
+    const data = e.currentTarget.dataset || {}
+    const { configindex = 0, urlindex = 0 } = data
+    const url = e.detail || {}
+    const cloneObj = this.data.activeConfig[configindex] || {}
+    cloneObj.dataArray[urlindex] = {
+      ...cloneObj.dataArray[urlindex],
+      url,
+      showDelete: true
     }
-    this.data.testArray2[index] = obj
+
     this.setData({
-      testArray2: this.data.testArray2
-    })
-  },
-  uploadImage(res){
-    const imageInfo = res.detail || {}
-    const { index } = imageInfo
-    const cloneArr = this.data.testArray2.slice()
-    cloneArr[index] = imageInfo
-    console.log(imageInfo, cloneArr)
-    this.setData({
-      testArray2: cloneArr
+      activeConfig: this.data.activeConfig
+    }, () => {
+      console.log(this.data.activeConfig)
     })
   },
   methods: {

@@ -1,7 +1,9 @@
 {
   "navigationBarTitleText": "上传证明材料",
   "usingComponents": {
-    "upload-single": "../../components/upload-single/upload-single",
+    "upload-single-video": "../../components/upload-single-video/upload-single-video",
+    "upload-single-image": "../../components/upload-single-image/upload-single-image",
+    "upload-single": "../../components/upload-single-video/upload-single-video",
     "camera-video": "../../components/video/video"
   }
 }

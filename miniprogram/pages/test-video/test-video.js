@@ -1,11 +1,12 @@
 /*
  * @Author: your name
  * @Date: 2020-04-01 11:06:22
- * @LastEditTime: 2020-04-02 14:03:11
+ * @LastEditTime: 2020-04-10 16:43:12
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \WXPlugin\miniprogram\pages\test-image\test-image.js
  */
+var plugin = requirePlugin("myPlugin")
 Page({
   data: {
     uploadObject: {
@@ -19,6 +20,11 @@ Page({
   methods: {
   },
   uploadVideo: function(list){
+    plugin.getData().then(res => {
+      console.log(333,res)
+    }, err => {
+      console.log(444, err)
+    })
     const length = list.detail && list.detail.length
     console.log(list.detail.length, list.detail)
     wx.showToast({
