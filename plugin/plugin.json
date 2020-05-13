@@ -5,12 +5,12 @@
     "upload-video": "components/upload-video/upload-video",
     "upload-single": "components/upload-single/upload-single",
     "upload-single-image": "components/upload-single-image/upload-single-image",
-    "upload-single-video": "components/upload-single-video/upload-single-video",
-    "video": "components/video/video"
+    "upload-single-video": "components/upload-single-video/upload-single-video"
   },
   "pages": {
     "fill-info": "pages/fill_info/fill_info",
-    "upload-information": "pages/upload-information/upload-information"
+    "upload-information": "pages/upload-information/upload-information",
+    "camera-video": "pages/video/video"
   },
   "main": "index.js"
 }

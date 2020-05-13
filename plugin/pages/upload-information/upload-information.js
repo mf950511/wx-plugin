@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-04-07 10:03:07
- * @LastEditTime: 2020-04-30 17:15:57
+ * @LastEditTime: 2020-05-13 15:32:43
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \WXPlugin\plugin\pages\upload-information\upload-information.js
@@ -31,7 +31,6 @@ Page({
       camera: 'back',
       compressed: true,
     },
-    showVideo: false,
     configData: [
       {
         name: '资料一',
@@ -119,6 +118,31 @@ Page({
       activeConfig: this.data.configData[this.data.activeIndex].config
     })
   },
+  onShow: function(){
+    wx.getStorage({
+      key: 'videoData',
+      success: (videoData) => {
+        const { data }  = videoData
+        const { videoSrc = '', imageSrc = '', configIndex = -1, urlindex = -1} = data || {}
+        console.log(44444, videoSrc, imageSrc, configIndex, urlindex, this.activieVideoConfigindex, this.activieVideoUrlindex)
+        if((+configIndex) === this.activieVideoConfigindex && (+urlindex) === this.activieVideoUrlindex) {
+          const cloneObj = this.data.activeConfig[configIndex] || {}
+          cloneObj.dataArray[urlindex] = {
+            ...cloneObj.dataArray[urlindex],
+            url: imageSrc,
+            videoSrc,
+            showDelete: true
+          }
+
+          this.setData({
+            activeConfig: this.data.activeConfig,
+          }, () => {
+            console.log(this.data.activeConfig)
+          })
+        }
+      }
+    })
+  },
   uploadAll(){
     try {
       console.log(123123, this.data.configData)
@@ -137,36 +161,13 @@ Page({
       activeConfig: this.data.configData[index].config
     })
   },
-  videoSuccess(e){
-    console.log(e)
-    const videoInfo = e.detail || {}
-    const { videoSrc = '', imageSrc = '' } = videoInfo
-    const configindex = this.activieVideoConfigindex || 0
-    const urlindex = this.activieVideoUrlindex || 0
-
-    const cloneObj = this.data.activeConfig[configindex] || {}
-    cloneObj.dataArray[urlindex] = {
-      ...cloneObj.dataArray[urlindex],
-      url: imageSrc,
-      videoSrc,
-      showDelete: true
-    }
-
-    this.setData({
-      activeConfig: this.data.activeConfig,
-      showVideo: false
-    }, () => {
-      console.log(this.data.activeConfig)
-    })
-
-  },
   uploadVideo(e){
     const data = e.currentTarget.dataset || {}
     const { configindex = 0, urlindex = 0 } = data
     this.activieVideoConfigindex = configindex
     this.activieVideoUrlindex = urlindex
-    this.setData({
-      showVideo: true
+    wx.navigateTo({
+      url: `plugin-private://wx29eaa708fc6bf3a4/pages/video/video?configIndex=${ configindex }&urlindex=${ urlindex }`
     })
   },
   deleteSingle(e){

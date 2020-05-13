@@ -1,5 +1,4 @@
 <view class="upload-information">
-  <camera-video wx:if="{{ showVideo }}" bind:video-success="videoSuccess"></camera-video>
   <view class="upload-information-warn">
     <view class="title">请完成以下资料上传，资料要求</view>
     <view class="tip-list">
