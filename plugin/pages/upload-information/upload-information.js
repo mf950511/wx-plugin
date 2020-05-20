@@ -1,11 +1,12 @@
 /*
  * @Author: your name
  * @Date: 2020-04-07 10:03:07
- * @LastEditTime: 2020-05-20 10:54:11
+ * @LastEditTime: 2020-05-20 16:35:25
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \WXPlugin\plugin\pages\upload-information\upload-information.js
  */
+const api = require('../../api/data')
 const untils = require('../../lib/untils')
 Page({
   data: {
@@ -37,8 +38,10 @@ Page({
     activeIndex: 0,
   },
   onLoad: function(){
-    untils.getStorage('test').then(res => {
-      res = res.data || {}
+    api.getData().then(res => {
+      console.log('获取数据', res)
+      if(!res) return
+      res = res.data
       this.setData({
         configData: res,
         activeConfig: res[this.data.activeIndex].config
@@ -46,6 +49,8 @@ Page({
         
         console.log(123, res[this.data.activeIndex].config)
       })
+    }, err => {
+      console.log('出错了', err)
     })
   },
   onShow: function(){

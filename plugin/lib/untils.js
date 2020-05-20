@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-04-02 11:27:39
- * @LastEditTime: 2020-05-20 10:51:44
+ * @LastEditTime: 2020-05-20 16:34:57
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \WXPlugin\plugin\lib\untils.js
@@ -14,7 +14,7 @@ function getStorage(key) {
         resolve(result)
       },
       fail: (err)=>{
-        reject(err)
+        resolve('')
       },
     });
   })

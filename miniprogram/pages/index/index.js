@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-01-16 13:44:14
- * @LastEditTime: 2020-05-20 10:54:26
+ * @LastEditTime: 2020-05-20 16:34:04
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \WXPlugin\miniprogram\pages\index\index.js
@@ -95,7 +95,9 @@ Page({
     }, err => {
       console.log(77777, err)
     })
-    plugin.setData(configData)
+    plugin.setData(configData).then(res => {
+      console.log(123213, res)
+    })
     
     console.log(untils)
   },
