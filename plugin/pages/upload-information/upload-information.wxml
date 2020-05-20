@@ -9,7 +9,7 @@
     </view>
   </view>
   <view class="upload-information-tab">
-    <view class="tab-wrapper" wx:if="{{ configData.length <= 4 }}">
+    <view class="tab-wrapper" wx:if="{{ configData.length <= 4 && configData.length >= 2 }}">
       <view class="tab {{ activeIndex === index ? 'active' : ''}}" wx:for="{{ configData }}" wx:key="index" data-index="{{ index }}" bindtap="changeConfig">
         <view class="tab-title">{{ item.name }}</view>
         <view class="tab-desc">{{ item.status }}</view>

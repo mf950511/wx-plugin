@@ -1,11 +1,12 @@
 /*
  * @Author: your name
  * @Date: 2020-04-07 10:03:07
- * @LastEditTime: 2020-05-13 15:32:43
+ * @LastEditTime: 2020-05-20 10:54:11
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \WXPlugin\plugin\pages\upload-information\upload-information.js
  */
+const untils = require('../../lib/untils')
 Page({
   data: {
     testArray: [],
@@ -31,91 +32,20 @@ Page({
       camera: 'back',
       compressed: true,
     },
-    configData: [
-      {
-        name: '资料一',
-        status: '未完成',
-        config: [
-          {
-            title: '资料标题+证明形式',
-            type: 'image',
-            dataArray: [
-              {
-                url: '',
-                iconDesc: '保险受益人页'
-              },
-              {
-                url: '',
-                iconDesc: '保险理赔页'
-              },
-              {
-                url: '',
-                iconDesc: '自定义页'
-              }
-            ]
-          },
-          {
-            title: '视频资料',
-            type: 'video',
-            dataArray: [
-              {
-                url: '',
-                iconDesc: '保险受益视频'
-              },
-              {
-                url: '',
-                iconDesc: '保险理赔视频'
-              }
-            ]
-          }
-        ]
-      },
-      {
-        name: '资料二',
-        status: '未完成',
-        config: [
-          {
-            title: '证明形式',
-            type: 'image',
-            dataArray: [
-              {
-                url: '',
-                iconDesc: '受益人页'
-              },
-              {
-                url: '',
-                iconDesc: '理赔页'
-              },
-              {
-                url: '',
-                iconDesc: '自定义页'
-              }
-            ]
-          },
-          {
-            title: '视频资料',
-            type: 'video',
-            dataArray: [
-              {
-                url: '',
-                iconDesc: '受益视频'
-              },
-              {
-                url: '',
-                iconDesc: '理赔视频'
-              }
-            ]
-          }
-        ]
-      }
-    ],
+    configData: [],
     activeConfig: [],
     activeIndex: 0,
   },
   onLoad: function(){
-    console.log(123, this.data.configData[this.data.activeIndex].config)
-    this.setData({
-      activeConfig: this.data.configData[this.data.activeIndex].config
+    untils.getStorage('test').then(res => {
+      res = res.data || {}
+      this.setData({
+        configData: res,
+        activeConfig: res[this.data.activeIndex].config
+      }, () => {
+        
+        console.log(123, res[this.data.activeIndex].config)
+      })
     })
   },
   onShow: function(){
@@ -138,6 +68,7 @@ Page({
             activeConfig: this.data.activeConfig,
           }, () => {
             console.log(this.data.activeConfig)
+            this.activieVideoUrlindex = this.activieVideoConfigindex = -1
           })
         }
       }
